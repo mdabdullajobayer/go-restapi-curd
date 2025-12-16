@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/curd/project/controller"
 	"github.com/curd/project/initializers"
 	"github.com/gin-gonic/gin"
 )
@@ -12,11 +13,15 @@ func init() {
 
 func main() {
 	router := gin.Default()
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "test api is worddking!",
-			"status":  "success",
-		})
-	})
+	// create data
+	router.POST("/create", controller.CreatePost)
+	// get all data
+	router.GET("/", controller.GetPosts)
+	// Find by Id
+	router.GET("/:id", controller.GetPostByID)
+	// update data
+	router.PUT("/:id", controller.UpdatePost)
+	// delete data
+	router.DELETE("/:id", controller.DeletePost)
 	router.Run() // listens on 0.0.0.0:8080 by default
 }
